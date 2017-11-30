@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package controllers
+package base
 
-import javax.inject.{Inject, Singleton}
+import org.scalatest.Matchers
+import org.scalatestplus.play.guice._
+import play.api.inject.Injector
+import play.api.mvc.AnyContentAsEmpty
+import play.api.test.FakeRequest
+import uk.gov.hmrc.play.test.UnitSpec
 
-import controllers.actions.AuthAction
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+trait SpecBase extends UnitSpec with Matchers with GuiceOneAppPerSuite {
 
-@Singleton()
-class SampleController @Inject()(authenticate: AuthAction) extends BaseController {
+  def injector: Injector = app.injector
 
-	def index(): Action[AnyContent] = authenticate { implicit request =>
-		Ok("Hello world")
-	}
+  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
 }
