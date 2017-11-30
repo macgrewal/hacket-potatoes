@@ -16,11 +16,10 @@
 
 package models
 
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{Format,Json}
 
-//TODO: Update the Model to reflect your requirements, this is only a dummy model
-case class SuccessModel(dummy: String)
+case class $modelName;format="Camel"$(dummy: String)
 
-object SuccessModel {
-  implicit val format: Format[SuccessModel] = Json.format[SuccessModel]
+object $modelName;format="Camel"$ {
+  implicit val format: Format[$modelName;format="Camel"$] = Json.format[$modelName;format="Camel"$]
 }

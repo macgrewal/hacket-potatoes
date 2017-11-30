@@ -25,8 +25,8 @@ import uk.gov.hmrc.play.bootstrap.controller.BaseController
 @Singleton()
 class $controllerName;format="Camel"$Controller @Inject()(val $serviceName;format="camel"$Service: $serviceName;format="Camel"$Service) extends BaseController {
 
-  def get(): Action[AnyContent] = Action.async { implicit request =>
-    $serviceName;format="camel"$Service.callConnector() map {
+  def get$modelName;format="Camel"$(): Action[AnyContent] = Action.async { implicit request =>
+    $serviceName;format="camel"$Service.get$serviceName;format="Camel"$() map {
       case Right(success) =>
         //TODO: Add any specific controller logic for success response
         Ok(success)

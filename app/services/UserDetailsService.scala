@@ -18,16 +18,16 @@ package services
 
 import javax.inject.{Inject, Singleton}
 
-import connectors.$connectorName;format="Camel"$Connector
-import models.{ErrorModel, $modelName;format="Camel"$}
+import connectors.UserDetailsConnector
+import models.{Error, Person}
 
 import scala.concurrent.Future
 
 @Singleton()
-class $serviceName;format="Camel"$Service @Inject()(val $connectorName;format="camel"$: $connectorName;format="Camel"$Connector) {
+class UserDetailsService @Inject()(val userDetails: UserDetailsConnector) {
 
-  def callConnector(): Future[Either[ErrorModel, $modelName;format="Camel"$]] = {
-    $connectorName;format="camel"$.getUrl() map {
+  def getUserDetails(): Future[Either[Error, Person]] = {
+    userDetails.getUrl() map {
       case Right(success) =>
         //TODO: Add any service specific success logic here
         Right(success)

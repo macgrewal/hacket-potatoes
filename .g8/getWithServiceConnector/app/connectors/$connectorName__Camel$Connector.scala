@@ -18,7 +18,7 @@ package connectors
 
 import javax.inject.{Inject, Singleton}
 
-import models.{ErrorModel, $modelName;format="Camel"$}
+import models.{Error, $modelName;format="Camel"$}
 import play.api.Logger
 import play.api.http.Status
 import play.api.http.Status._
@@ -31,31 +31,25 @@ import scala.concurrent.Future
 @Singleton
 class $connectorName;format="Camel"$Connector @Inject()(val http: HttpClient) {
 
-  val url: String = s"sampleUrl"
+  val url: String = "$connectorUrl$"
 
-  def getUrl()(implicit hc: HeaderCarrier): Future[Either[ErrorModel, $modelName;format="Camel"$]] = {
-    Logger.debug(s"[$connectorName;format="Camel"$Connector][getMethod] - Calling GET $url \n\nHeaders: $hc")
+  def getUrl()(implicit hc: HeaderCarrier): Future[Either[Error, $modelName;format="Camel"$]] = {
     http.GET[HttpResponse](url) map {
       response =>
         response.status match {
           case OK =>
-            Logger.debug(s"[$connectorName;format="Camel"$Connector][getMethod] - RESPONSE status: ${response.status}, body: ${response.body}")
             response.json.validate[$modelName;format="Camel"$].fold(
               invalid => {
-                Logger.warn(s"[$connectorName;format="Camel"$Connector][getMethod] - Json ValidationError. $invalid")
-                Left(ErrorModel(response.status, response.body))
+                Left(Error(response.status, response.body))
               },
               valid => Right(valid)
             )
           case _ =>
-            Logger.debug(s"[$connectorName;format="Camel"$Connector][getMethod] - RESPONSE status: ${response.status}, body: ${response.body}")
-            Logger.warn(s"[$connectorName;format="Camel"$Connector][getMethod] - Response status: [${response.status}]")
-            Left(ErrorModel(response.status, response.body))
+            Left(Error(response.status, response.body))
         }
     } recover {
       case _ =>
-        Logger.warn(s"[$connectorName;format="Camel"$Connector][getMethod] - Failed Future")
-        Left(ErrorModel(Status.INTERNAL_SERVER_ERROR, "Failed Future"))
+        Left(Error(Status.INTERNAL_SERVER_ERROR, "Failed Future"))
     }
   }
 }
