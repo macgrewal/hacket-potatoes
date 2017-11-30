@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package controllers
+package connectors
 
-import javax.inject.Singleton
+import javax.inject.{Inject, Singleton}
 
-import models.$pluralModel;format="Camel"$
-import play.api.libs.json.Json
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.http.HttpResponse
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.Future
 
 @Singleton
-class $pluralModel;format="Camel"$Controller extends BaseController {
+class $connectorName;format="Camel"$Connector @Inject()(http: HttpClient) {
 
-  def index(): Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(Json.toJson($pluralModel;format="Camel"$(Seq.empty))))
-  }
+  def get$connectorName;format="Camel"$: Future[HttpResponse] = http.GET("/some/other/service")
 
 }
