@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.actions
 
-import javax.inject.{Inject, Singleton}
+import play.api.mvc.{Request, Result}
+import models.requests.AuthenticatedRequest
 
-import controllers.actions.AuthAction
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import scala.concurrent.Future
 
-@Singleton()
-class SampleController @Inject()(authenticate: AuthAction) extends BaseController {
-
-	def index(): Action[AnyContent] = authenticate { implicit request =>
-		Ok("Hello world")
-	}
-
+object FakeAuthAction extends AuthAction {
+  override def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] =
+    block(AuthenticatedRequest(request, "id"))
 }
