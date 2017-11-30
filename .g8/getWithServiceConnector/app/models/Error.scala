@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import javax.inject.{Inject, Singleton}
+import play.api.libs.json.{Format, Json}
 
-import controllers.actions.AuthAction
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
 
-@Singleton()
-class SampleController @Inject()(authenticate: AuthAction) extends BaseController {
+case class Error(code: Int, msg: String)
 
-  def index(): Action[AnyContent] = authenticate { implicit request =>
-    Ok("Hello world")
-  }
-
+object Error {
+  implicit val formats: Format[Error] = Json.format[Error]
 }

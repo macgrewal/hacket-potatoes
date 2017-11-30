@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import javax.inject.{Inject, Singleton}
+import play.api.libs.json.{Format,Json}
 
-import controllers.actions.AuthAction
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+case class $modelName;format="Camel"$(dummy: String)
 
-@Singleton()
-class SampleController @Inject()(authenticate: AuthAction) extends BaseController {
-
-  def index(): Action[AnyContent] = authenticate { implicit request =>
-    Ok("Hello world")
-  }
-
+object $modelName;format="Camel"$ {
+  implicit val format: Format[$modelName;format="Camel"$] = Json.format[$modelName;format="Camel"$]
 }
