@@ -2,6 +2,7 @@
 
 !.gitignore
 !.g8
+!.keep
 
 .cache
 /.classpath
@@ -34,3 +35,5 @@ test-result
 tmp
 .idea_modules
 bin
+
+migrations/*.sh
