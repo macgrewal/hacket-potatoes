@@ -18,22 +18,15 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 
+import controllers.actions.AuthAction
 import play.api.mvc._
-import services.UserDetailsService
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 
 @Singleton()
-class PeopleController @Inject()(val userDetailsService: UserDetailsService) extends BaseController {
+class SampleController @Inject()(authenticate: AuthAction) extends BaseController {
 
-  def getPerson(): Action[AnyContent] = Action.async { implicit request =>
-    userDetailsService.getUserDetails() map {
-      case Right(success) =>
-        //TODO: Add any specific controller logic for success response
-        Ok(success)
-      case Left(error) =>
-        //TODO: Add any specific controller logic for error response, default is to return bubbled response
-        Status(error.code)(error.msg)
-    }
+  def index(): Action[AnyContent] = authenticate { implicit request =>
+    Ok("Hello world")
   }
 
 }
