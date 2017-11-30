@@ -19,21 +19,21 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import play.api.mvc._
-import services.SampleService
+import services.$serviceName;format="Camel"$Service
 import uk.gov.hmrc.play.bootstrap.controller.BaseController
 
 @Singleton()
-class SampleController @Inject()(val sampleService: SampleService) extends BaseController {
+class $controllerName;format="Camel"$Controller @Inject()(val $serviceName;format="camel"$Service: $serviceName;format="Camel"$Service) extends BaseController {
 
-	def get(): Action[AnyContent] = Action.async { implicit request =>
-		sampleService.callConnector() map {
-			case Right(success) =>
-				//TODO: Add any specific controller logic for success response
-				Ok(success)
-			case Left(error) =>
-				//TODO: Add any specific controller logic for error response, default is to return bubbled response
-				Status(error.code)(error.msg)
-		}
-	}
+  def get(): Action[AnyContent] = Action.async { implicit request =>
+    $serviceName;format="camel"$Service.callConnector() map {
+      case Right(success) =>
+        //TODO: Add any specific controller logic for success response
+        Ok(success)
+      case Left(error) =>
+        //TODO: Add any specific controller logic for error response, default is to return bubbled response
+        Status(error.code)(error.msg)
+    }
+  }
 
 }

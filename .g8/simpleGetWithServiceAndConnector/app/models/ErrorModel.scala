@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-class $controllerName$Controller {
+import play.api.libs.json.{Format, Json}
 
+
+case class ErrorModel(code: Int, msg: String)
+
+object ErrorModel {
+  implicit val formats: Format[ErrorModel] = Json.format[ErrorModel]
 }

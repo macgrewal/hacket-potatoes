@@ -18,7 +18,7 @@ package connectors
 
 import javax.inject.{Inject, Singleton}
 
-import models.{ErrorModel, SuccessModel}
+import models.{ErrorModel, $modelName;format="Camel"$}
 import play.api.Logger
 import play.api.http.Status
 import play.api.http.Status._
@@ -29,32 +29,32 @@ import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
 import scala.concurrent.Future
 
 @Singleton
-class SampleConnector @Inject()(val http: HttpClient) {
+class $connectorName;format="Camel"$Connector @Inject()(val http: HttpClient) {
 
   val url: String = s"sampleUrl"
 
-  def getUrl()(implicit hc: HeaderCarrier): Future[Either[ErrorModel, SuccessModel]] = {
-    Logger.debug(s"[SampleConnector][getMethod] - Calling GET $url \n\nHeaders: $hc")
+  def getUrl()(implicit hc: HeaderCarrier): Future[Either[ErrorModel, $modelName;format="Camel"$]] = {
+    Logger.debug(s"[$connectorName;format="Camel"$Connector][getMethod] - Calling GET $url \n\nHeaders: $hc")
     http.GET[HttpResponse](url) map {
       response =>
         response.status match {
           case OK =>
-            Logger.debug(s"[SampleConnector][getMethod] - RESPONSE status: ${response.status}, body: ${response.body}")
-            response.json.validate[SuccessModel].fold(
+            Logger.debug(s"[$connectorName;format="Camel"$Connector][getMethod] - RESPONSE status: ${response.status}, body: ${response.body}")
+            response.json.validate[$modelName;format="Camel"$].fold(
               invalid => {
-                Logger.warn(s"[SampleConnector][getMethod] - Json ValidationError. $invalid")
+                Logger.warn(s"[$connectorName;format="Camel"$Connector][getMethod] - Json ValidationError. $invalid")
                 Left(ErrorModel(response.status, response.body))
               },
               valid => Right(valid)
             )
           case _ =>
-            Logger.debug(s"[SampleConnector][getMethod] - RESPONSE status: ${response.status}, body: ${response.body}")
-            Logger.warn(s"[SampleConnector][getMethod] - Response status: [${response.status}]")
+            Logger.debug(s"[$connectorName;format="Camel"$Connector][getMethod] - RESPONSE status: ${response.status}, body: ${response.body}")
+            Logger.warn(s"[$connectorName;format="Camel"$Connector][getMethod] - Response status: [${response.status}]")
             Left(ErrorModel(response.status, response.body))
         }
     } recover {
       case _ =>
-        Logger.warn(s"[SampleConnector][getMethod] - Failed Future")
+        Logger.warn(s"[$connectorName;format="Camel"$Connector][getMethod] - Failed Future")
         Left(ErrorModel(Status.INTERNAL_SERVER_ERROR, "Failed Future"))
     }
   }
