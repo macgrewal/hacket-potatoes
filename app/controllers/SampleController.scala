@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-resolvers += Resolver.url("hmrc-sbt-plugin-releases", url("https://dl.bintray.com/hmrc/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+package controllers
 
-resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
+import javax.inject.Singleton
 
-addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "1.7.0")
+import play.api.mvc._
+import uk.gov.hmrc.play.bootstrap.controller.BaseController
 
-addSbtPlugin("uk.gov.hmrc" % "sbt-git-versioning" % "0.9.0")
+import scala.concurrent.Future
 
-addSbtPlugin("uk.gov.hmrc" % "sbt-distributables" % "1.0.0")
+@Singleton()
+class SampleController extends BaseController {
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.12")
+	def index(): Action[AnyContent] = Action.async { implicit request =>
+		Future.successful(Ok("Hello world"))
+	}
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
-
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
+}
