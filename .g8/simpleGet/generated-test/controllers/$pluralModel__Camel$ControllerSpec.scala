@@ -18,16 +18,13 @@ package controllers
 
 import play.api.http.Status
 import play.api.test.FakeRequest
-import uk.gov.hmrc.play.test.UnitSpec
-import org.scalatestplus.play.guice._
+import base.SpecBase
 
-class $pluralName;format="Camel"$ControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
-
-  val fakeRequest = FakeRequest()
+class $pluralModel;format="Camel"$ControllerSpec extends SpecBase {
 
   "GET /" should {
     "return 200" in {
-      val controller = new $pluralName;format="Camel"$Controller()
+      val controller = new $pluralModel;format="Camel"$Controller()
       val result = controller.index()(fakeRequest)
       status(result) shouldBe Status.OK
     }

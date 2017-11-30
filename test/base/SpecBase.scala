@@ -16,17 +16,16 @@
 
 package base
 
-import org.scalatest.Matchers
 import org.scalatestplus.play.guice._
 import play.api.inject.Injector
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.play.test.UnitSpec
 
-trait SpecBase extends UnitSpec with Matchers with GuiceOneAppPerSuite {
+trait SpecBase extends UnitSpec with GuiceOneAppPerSuite {
 
   def injector: Injector = app.injector
 
-  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
+  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
 }
