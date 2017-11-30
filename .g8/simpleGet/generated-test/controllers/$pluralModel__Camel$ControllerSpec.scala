@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package base
+package controllers
 
-import org.scalatestplus.play.guice._
-import play.api.inject.Injector
-import play.api.mvc.AnyContentAsEmpty
+import play.api.http.Status
 import play.api.test.FakeRequest
-import uk.gov.hmrc.play.test.UnitSpec
+import base.SpecBase
 
-trait SpecBase extends UnitSpec with GuiceOneAppPerSuite {
+class $pluralModel;format="Camel"$ControllerSpec extends SpecBase {
 
-  def injector: Injector = app.injector
-
-  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
-
+  "GET /" should {
+    "return 200" in {
+      val controller = new $pluralModel;format="Camel"$Controller()
+      val result = controller.index()(fakeRequest)
+      status(result) shouldBe Status.OK
+    }
+  }
 }

@@ -2,7 +2,6 @@
 
 echo "Applying migrations..."
 cd migrations
-pwd
 for file in *.sh
 do
     echo "Applying migration $file"
